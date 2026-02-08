@@ -4,7 +4,7 @@ import { StudentView } from './components/StudentView';
 
 function App() {
   return (
-    <BrowserRouter basename="/special-ed-pe-ai">
+    <BrowserRouter>
       <Routes>
         <Route path="/teacher" element={<TeacherView />} />
         <Route path="/display" element={<StudentView />} />
