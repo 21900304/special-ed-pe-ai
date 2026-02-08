@@ -116,3 +116,45 @@
 - `src/components/StudentView.tsx` - 학생 화면 (BroadcastChannel 수신+캐릭터 렌더)
 - `src/types/broadcast.ts` - BroadcastChannel 메시지 타입 정의
 - `src/App.tsx` - 라우팅 업데이트 (/teacher, /display)
+
+## Task 7: PWA 오프라인 모드 (2026-02-08)
+
+### 구현 내용
+- vite-plugin-pwa 설치 및 설정
+- manifest.json 생성 (앱 이름, 아이콘, 테마)
+- PWA 아이콘 생성 (192x192, 512x512) - sharp 라이브러리 사용
+- Service Worker 자동 생성 (Workbox)
+- TensorFlow.js 모델 캐싱 설정
+
+### 핵심 학습
+1. **TensorFlow.js 모델 캐싱**:
+   - MoveNet 모델은 tfhub.dev와 storage.googleapis.com에서 로드됨
+   - runtimeCaching에 이 도메인들을 추가해야 오프라인 작동
+   - CacheFirst 전략으로 1년간 캐시 유지
+
+2. **PWA 테스트 프로세스**:
+   - 첫 방문: 온라인 상태에서 모델 캐시
+   - 두 번째 방문: 오프라인 상태에서 캐시된 모델 사용
+   - Playwright의 `context().setOffline(true)`로 오프라인 테스트
+
+3. **아이콘 생성**:
+   - sharp 라이브러리로 SVG → PNG 변환
+   - 간단한 텍스트 기반 아이콘으로 MVP 충분
+
+### 검증 결과
+- ✅ Service Worker 활성화 확인
+- ✅ 오프라인 모드에서 앱 정상 작동
+- ✅ MoveNet 모델 캐시에서 로드 (FPS: 53-60)
+- ✅ 2명 동시 감지 정상 작동
+
+### 증거 파일
+- task-7-manifest.txt: 생성된 manifest.json
+- task-7-sw-registered.png: Service Worker 활성화 스크린샷
+- task-7-offline-mode.png: 오프라인 모드 작동 스크린샷
+
+### 배포 준비
+- 학교 환경에서 인터넷 없이 작동 가능
+- 설치 없이 브라우저에서 "홈 화면에 추가" 가능
+- 모든 기능 오프라인 작동 확인 완료
+
+**MVP 완성! 파일럿 테스트 준비 완료.**
