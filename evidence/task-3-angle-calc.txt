@@ -1,0 +1,6 @@
+=== calculateAngle Test Results ===
+Straight line (expect ~180): 180
+Right angle (expect ~90): 90
+Obtuse (expect ~135): 135
+Acute (expect ~45): 45
+ALL PASS

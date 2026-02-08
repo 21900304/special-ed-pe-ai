@@ -2,6 +2,8 @@ import { useEffect, useRef, useCallback } from 'react';
 import type { Pose, Keypoint } from '@tensorflow-models/pose-detection';
 import { useWebcam } from '../hooks/useWebcam';
 import { useMoveNet } from '../hooks/useMoveNet';
+import { useSquatCounter } from '../hooks/useSquatCounter';
+import { SquatCountDisplay } from './SquatCountDisplay';
 
 // COCO 17-keypoint skeleton adjacency pairs
 const SKELETON_CONNECTIONS: [number, number][] = [
@@ -96,6 +98,7 @@ export function PoseDetection() {
     startDetection,
     stopDetection,
   } = useMoveNet();
+  const { persons, totalCount } = useSquatCounter(poses);
 
   useEffect(() => {
     void startWebcam();
@@ -161,6 +164,8 @@ export function PoseDetection() {
 
   return (
     <div className="relative w-full h-screen bg-gray-900 flex flex-col items-center justify-center">
+      <SquatCountDisplay persons={persons} totalCount={totalCount} />
+
       <div className="absolute top-4 left-4 z-20 flex flex-col gap-2">
         <div
           className={`px-3 py-1 rounded text-sm font-mono ${

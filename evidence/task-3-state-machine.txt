@@ -1,0 +1,19 @@
+=== SquatCounter State Machine Test ===
+Initial (standing, 175°): {"count":0,"state":"STANDING"}
+Going down (110°): {"count":0,"state":"SQUATTING"}
+Back up (175°): {"count":1,"state":"STANDING"}
+Count after 1 cycle: 1
+
+=== Hysteresis Test ===
+Mid angle 140° (stay STANDING): {"count":1,"state":"STANDING"}
+Down 115° (SQUATTING): {"count":1,"state":"SQUATTING"}
+Mid angle 140° (stay SQUATTING): {"count":1,"state":"SQUATTING"}
+Up 165° (STANDING, count=2): {"count":2,"state":"STANDING"}
+
+=== Double-counting Prevention ===
+Down 100°: {"count":2,"state":"SQUATTING"}
+Down again 95°: {"count":2,"state":"SQUATTING"}
+Up 170°: {"count":3,"state":"STANDING"}
+Up again 175°: {"count":3,"state":"STANDING"}
+Final count (expect 3): 3
+ALL PASS
