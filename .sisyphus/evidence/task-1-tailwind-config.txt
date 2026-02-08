@@ -1,0 +1,19 @@
+tailwind.config.js
+==================
+
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: [
+    "./index.html",
+    "./src/**/*.{js,ts,jsx,tsx}",
+  ],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+}
+
+Configuration Details:
+- Content paths configured for all src files (js, ts, jsx, tsx)
+- Theme extended for custom styling
+- No plugins required for MVP
